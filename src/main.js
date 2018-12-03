@@ -134,6 +134,7 @@ function storage_update_disk(){
 
 //--Check with server if an update is ready
 function start_checkupdates(){
+  console.log("MAIN: Checking for updates");
   updater.updater_check_updates(version_core,global.storage_settings["version"],global.storage_settings["version_branch"]);
   setTimeout(function(){ start_checkupdates_refresh(); }, 30);
 }
@@ -161,6 +162,7 @@ function start_updates(){
     slashes: true
   }));
 
+  console.log("MAIN: Installing updates");
   updater.updater_run_updates(version_core,global.storage_settings["version"],global.storage_settings["version_branch"]);
   setTimeout(function(){ start_updates_status(); }, 5);
 }
@@ -199,6 +201,7 @@ function start_updates_status(){
 
 //--Start main browser process
 function start_browser(){
+  console.log("MAIN: Starting browser...");
   win = new BrowserWindow({width: global.storage_preferences["window_width"], height: global.storage_preferences["window_height"], transparent: true, frame: false, webPreferences: { partition: "persist:browserwindow", experimentalFeatures: true } });
 
   //--Check if a internal dev version, if so we use the internal browser copy not the downloaded one
@@ -206,6 +209,8 @@ function start_browser(){
     var loadpath=appDataPath;
     var browserpath="src/";
   }else{
+    console.log("MAIN: Internal DEV mode used");
+    console.log("MAIN: Loading from " + __dirname + "");
     var loadpath=__dirname;
     var browserpath="";
   }
@@ -215,6 +220,8 @@ function start_browser(){
     protocol: 'file:',
     slashes: true
   }));
+
+  console.log("MAIN: Loaded browser from " + loadpath + "/" + browserpath + "browser/browser.html");
 
   system_open=true;
 
@@ -288,6 +295,8 @@ function start_browser(){
     details.requestHeaders['Browser-ID'] = global.storage_settings["browser_id"];
     callback({cancel: false, requestHeaders: details.requestHeaders});
   });
+
+  console.log("MAIN: Browser startup finished");
 }
 
 //--Fires when the app is sent a url to load! Pass it on to the browser if it's open!
