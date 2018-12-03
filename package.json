@@ -97,6 +97,7 @@
     }
   },
   "dependencies": {
+    "appdmg": "^0.5.2",
     "electron-compile": "^6.4.3",
     "electron-cookies": "^1.1.0",
     "electron-squirrel-startup": "^1.0.0",
