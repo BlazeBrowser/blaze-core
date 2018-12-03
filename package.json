@@ -111,7 +111,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "electron-forge": "^5.2.3",
-    "electron-prebuilt-compile": "^3.0.10",
+    "electron-prebuilt-compile": "3.0.10",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.13.0",
