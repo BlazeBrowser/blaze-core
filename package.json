@@ -1,0 +1,121 @@
+{
+  "name": "Blaze",
+  "productName": "Blaze",
+  "version": "1.5.1",
+  "description": "A fast modern and safe web browser",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "eslint src --color"
+  },
+  "keywords": [],
+  "author": "anthonyrossbach",
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {
+        "appCategoryType": "public.app-category.productivity",
+        "appBundleId": "com.blaze.blazebrowser",
+        "osxSign": {
+          "identity": "Developer ID Application: Anthony Rossbach (NYP7FR7K78)"
+        },
+        "appCopyright": "Copyright (c) 2018 Blaze and Anthony Rossbach",
+        "name": "Blaze",
+        "versionString": {
+          "CompanyName": "Blaze Browser Group",
+          "FileDescription": "Blaze Browser",
+          "ProductName": "Blaze",
+          "InternalName": "Blaze"
+        },
+        "win32metadata": {
+          "CompanyName": "Blaze Browser Group"
+        },
+        "extendInfo": "src/info.plist",
+        "icon": "src/icons/icon.icns",
+        "packageManager": "npm"
+      },
+      "electronInstallerDMG": {
+        "title": "Blaze",
+        "background": "src/background.png",
+        "icon": "src/icons/icon.icns",
+        "iconsize": 120,
+        "window": {
+            "size": {
+                "width": 620,
+                "height": 480
+            }
+        },
+        "content": [
+        {
+            "x": 480,
+            "y": 240,
+            "type": "link",
+            "path": "/Applications"
+        },
+        {
+            "x": 160,
+            "y": 240,
+            "type": "file",
+            "path": "out/Blaze-darwin-x64/Blaze.app"
+        }
+    ]
+      },
+      "electronWinstallerConfig": {
+        "name": "blaze",
+        "author": "anthonyrossbach",
+        "exe": "blaze.exe",
+        "description": "The next generation web browser",
+        "icon": "src/icons/icon.ico",
+		    "setupIcon": "src/icons/icon.ico",
+		    "noMsi": true
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "",
+        "name": ""
+      },
+      "windowsStoreConfig": {
+        "packageName": "",
+        "name": "blaze"
+      }
+    }
+  },
+  "dependencies": {
+    "electron-compile": "^6.4.3",
+    "electron-cookies": "^1.1.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "fs-path": "0.0.24",
+    "js-base64": "^2.4.8",
+    "mkdirp": "^0.5.1",
+    "rcedit": "^1.1.0",
+    "xhr2": "^0.1.4"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "electron-forge": "^4.3.0",
+    "electron-prebuilt-compile": "1.8.2-beta.3",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.10.0"
+  }
+}
