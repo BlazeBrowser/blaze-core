@@ -69,6 +69,14 @@ if (global.storage_settings["settings_blockers_spam"]==undefined){
   global.storage_settings["settings_blockers_spam"]=true;
 }
 
+//--Update old settings
+if (global.storage_settings["version_branch"]=="alpha"){
+  global.storage_settings["version_branch"]="master";
+}
+if (global.storage_settings["version_branch"]=="current"){
+  global.storage_settings["version_branch"]="stable";
+}
+
 //--App is closed, time to save data
 app.on('window-all-closed', function(){
   //Save data first to disk!!!!
