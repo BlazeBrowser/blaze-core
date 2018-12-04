@@ -10,6 +10,7 @@ var update_status="Downloading file lists";
 var update_avalable=null;
 var update_failed=false;
 var update_url="https://raw.blazebrowser.com/";
+var timecode=Date.now();
 const appDataPath = (electron.app || electron.remote.app).getPath('userData');
 
 var getJSON = function(url, callback){
@@ -59,7 +60,7 @@ class updater{
   updater_check_updates(version_core,version_app,branch){
     new_version_app=version_app;
     //--Check the web to see if we have a new version waiting for us...
-    getJSON("" + update_url + "" + branch + "_version.json", function(err, response){
+    getJSON("" + update_url + "" + branch + "_version.json?version=" + timecode + "", function(err, response){
       if (err==null){
         if (response["version"]!=undefined){
           var new_version=response["version"];
@@ -67,7 +68,7 @@ class updater{
           //--Hey if the new version is diffrent we should install it!
           if (new_version!=version_app){
 
-            getJSON("" + update_url + "" + branch + "/main_updater_list.json", function(err2, response2){
+            getJSON("" + update_url + "" + branch + "/main_updater_list.json?version=" + timecode + "", function(err2, response2){
               if (err2==null){
                 if (response2["requirement_core"]<=version_core){
                   update_avalable=true;
@@ -90,7 +91,7 @@ class updater{
   updater_run_updates(version_core,version_app,branch){
     new_version_app=version_app;
     //--Check the web to see if we have a new version waiting for us...
-    getJSON("" + update_url + "" + branch + "_version.json", function(err, response){
+    getJSON("" + update_url + "" + branch + "_version.json?version=" + timecode + "", function(err, response){
       if (err==null){
         if (response["version"]!=undefined){
           var new_version=response["version"];
@@ -126,7 +127,7 @@ class updater{
 
 function updater_install_updates(version_core,version_app,branch,new_version){
   //--If we have a new version waiting for us this is called so we can update all the files on the fly.
-  getJSON("" + update_url + "" + branch + "/main_updater_list.json", function(err, response){
+  getJSON("" + update_url + "" + branch + "/main_updater_list.json?version=" + timecode + "", function(err, response){
     if (err==null){
       if (response["requirement_core"]!=undefined){
         if (response["requirement_core"]==version_core){
