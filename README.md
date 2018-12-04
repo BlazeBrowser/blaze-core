@@ -11,10 +11,12 @@ sudo dnf install libtool m4 make gcc-c++  # fedora
 
 Clone the core source from GitHub, install the dependencies, and run the build with electron-forge.
 
+```
 git clone https://github.com/BlazeBrowser/blaze-core.git
 cd blaze-core
 npm install
 electron-forge start
+```
 
 If it fails to start you might need to install electron-forge.
 
