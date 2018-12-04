@@ -9,7 +9,7 @@ var files_installed=0;
 var update_status="Downloading file lists";
 var update_avalable=null;
 var update_failed=false;
-var update_url="https://raw.githubusercontent.com/BlazeBrowser/blaze-browser/";
+var update_url="https://raw.blazebrowser.com/";
 const appDataPath = (electron.app || electron.remote.app).getPath('userData');
 
 var getJSON = function(url, callback){
@@ -59,7 +59,7 @@ class updater{
   updater_check_updates(version_core,version_app,branch){
     new_version_app=version_app;
     //--Check the web to see if we have a new version waiting for us...
-    getJSON("" + update_url + "" + branch + "/version.json", function(err, response){
+    getJSON("" + update_url + "" + branch + "_version.json", function(err, response){
       if (err==null){
         if (response["version"]!=undefined){
           var new_version=response["version"];
@@ -90,7 +90,7 @@ class updater{
   updater_run_updates(version_core,version_app,branch){
     new_version_app=version_app;
     //--Check the web to see if we have a new version waiting for us...
-    getJSON("" + update_url + "" + branch + "/version.json", function(err, response){
+    getJSON("" + update_url + "" + branch + "_version.json", function(err, response){
       if (err==null){
         if (response["version"]!=undefined){
           var new_version=response["version"];
