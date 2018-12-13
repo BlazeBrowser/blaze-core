@@ -49,26 +49,6 @@ ipcMain.on('update_storage_preferences', function(event, arg) {
   global.storage_preferences=arg;
 });
 
-//Load defaults if not set
-if (global.storage_settings["settings_blockers_ads"]==undefined){
-  global.storage_settings["settings_blockers_ads"]=true;
-}
-if (global.storage_settings["settings_blockers_social"]==undefined){
-  global.storage_settings["settings_blockers_social"]=true;
-}
-if (global.storage_settings["settings_blockers_tracking"]==undefined){
-  global.storage_settings["settings_blockers_tracking"]=true;
-}
-if (global.storage_settings["settings_blockers_badnetwork"]==undefined){
-  global.storage_settings["settings_blockers_badnetwork"]=true;
-}
-if (global.storage_settings["settings_blockers_custom"]==undefined){
-  global.storage_settings["settings_blockers_custom"]=true;
-}
-if (global.storage_settings["settings_blockers_spam"]==undefined){
-  global.storage_settings["settings_blockers_spam"]=true;
-}
-
 //--Update old settings
 if (global.storage_settings["version_branch"]=="alpha"){
   global.storage_settings["version_branch"]="master";
@@ -244,35 +224,22 @@ function start_browser(){
     var test_url=details.url;
     var block_me = false;
 
-    //--Ad blocker
-    if (global.storage_settings["settings_blockers_ads"]==true){
-      if (webrequest_blocklist_check('adscripts',test_url)==true){ block_me=true; }
-      if (webrequest_blocklist_check('antiadblockscripts',test_url)==true){ block_me=true; }
-    }
-
-    //--Tracking blocker
-    if (global.storage_settings["settings_blockers_tracking"]==true){
-      if (webrequest_blocklist_check('trackerscripts',test_url)==true){ block_me=true; }
-    }
-
-    //--Social Blocker
-    if (global.storage_settings["settings_blockers_social"]==true){
-      if (webrequest_blocklist_check('socialscripts',test_url)==true){ block_me=true; }
-    }
-
-    //--Spam Blocker
-    if (global.storage_settings["settings_blockers_spam"]==true){
-      if (webrequest_blocklist_check('spam',test_url)==true){ block_me=true; }
-    }
-
-    //--Custom
-    if (global.storage_settings["settings_blockers_custom"]==true){
-      if (webrequest_blocklist_check('custom',test_url)==true){ block_me=true; }
-    }
-
-    //--badnetworks
-    if (global.storage_settings["settings_blockers_badnetwork"]==true){
-      if (webrequest_blocklist_check('badnetwork',test_url)==true){ block_me=true; }
+    //Check the web filter Blocklist
+    var blacklistdata=global.storage_preferences["security_webrequest_blocklist"];
+    if (blacklistdata!==undefined){
+      if (blacklistdata !== undefined || blacklistdata.length != 0) {
+        for (var webfilter in blacklistdata){
+          if (blacklistdata.hasOwnProperty(webfilter)){
+             if (blacklistdata[webfilter]==true){
+               if (webrequest_blocklist_check(webfilter,test_url)==true){ block_me=true; }
+             }
+          }
+        }
+      }else{
+        console.log("MAIN: Filters failed");
+      }
+    }else{
+      console.log("MAIN: Filters failed");
     }
 
     if (block_me==true){
