@@ -64,6 +64,7 @@ class updater{
       if (err==null){
         if (response["version"]!=undefined){
           var new_version=response["version"];
+          console.log("MAIN: Current version listed at " + update_url + "" + branch + "_version.json?version=" + timecode + " is " + new_version + ".")
 
           //--Hey if the new version is diffrent we should install it!
           if (new_version!=version_app){
@@ -165,7 +166,7 @@ function updater_download_file(filelist,version_core,version_app,branch,new_vers
   var fileurl="" + update_url + "" + branch + "" + filedown + '?version=' + new_version + '';
   getFILE(fileurl, function(err, response){
     if (err==null){
-      var thispath=path.join(appDataPath,'src' + filedown + '');
+      var thispath=path.join(appDataPath,'src/browser/' + filedown + '');
       fsPath.writeFile(thispath, response, function(err){
         if(err){
           update_status="Cant write file " + filename + " to disk";
